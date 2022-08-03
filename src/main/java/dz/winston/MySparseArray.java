@@ -1,7 +1,5 @@
 package dz.winston;
 
-import javax.swing.*;
-
 /**
  * @Author: EpochDZ
  * @Date: 19:53 2022/8/3
@@ -9,24 +7,17 @@ import javax.swing.*;
  * @Version v1.0
  */
 public class MySparseArray {
-//    private int m;
-//    private int n;
-//    private int[][] twoDimArray = new int[m][n];
-
-    private int validNum;
-    private int[][] sparseArray = new int[validNum][3];
-
 
     /**
      * 获取有效数字个数
-     * @param chessArr
-     * @return
+     * @param twoDimArr 二维数组
+     * @return int
      */
-    private static int getValidNum(int[][] chessArr) {
+    public int getValidNum(int[][] twoDimArr) {
         int sum = 0;
-        for (int i = 0; i < chessArr.length; i++) {
-            for (int j = 0; j < chessArr[0].length; j++) {
-                if (chessArr[i][j] != 0) {
+        for (int i = 0; i < twoDimArr.length; i++) {
+            for (int j = 0; j < twoDimArr[0].length; j++) {
+                if (twoDimArr[i][j] != 0) {
                     sum++;
                 }
             }
@@ -34,6 +25,11 @@ public class MySparseArray {
         return sum;
     }
 
+    /**
+     * 二维数组转稀疏数组
+     * @param twoDimArr 二维数组
+     * @return int[][]
+     */
     public int[][] transToSparse(int[][] twoDimArr) {
         int sum = getValidNum(twoDimArr);
         int[][] sparseArr = new int[sum + 1][3];
@@ -51,25 +47,45 @@ public class MySparseArray {
         return sparseArr;
     }
 
-//    public int[][] transToTwoDim(int [][] sparseArr){
-//
-//
-//    }
+    /**
+     * 稀疏数组转二维数组
+     * @param sparseArr 稀疏数组
+     * @return int[][]
+     */
+    public int[][] transToTwoDim(int [][] sparseArr){
+        int m = sparseArr[0][0];
+        int n = sparseArr[0][1];
+        int[][] twoDimArr = new int[m][n];
+        for (int i = 1; i < sparseArr.length; i++) {
+            twoDimArr[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
+        }
+        return twoDimArr;
+    }
 
     public static void main(String[] args) {
         MySparseArray mySparseArray = new MySparseArray();
-        int [][] chessArr = new int[5][5];
-        chessArr[1][1] = 3;
-        chessArr[2][2] = 5;
-        chessArr[3][3] = 7;
-        int sum = getValidNum(chessArr);
-        int [][] sparseArr = mySparseArray.transToSparse(chessArr);
-        sparseArr[0][0] = chessArr.length;
-        sparseArr[0][1] = chessArr[0].length;
+        int [][] twoDimArr = new int[5][5];
+        twoDimArr[1][1] = 3;
+        twoDimArr[2][2] = 5;
+        twoDimArr[3][3] = 7;
+        int sum = mySparseArray.getValidNum(twoDimArr);
+        int [][] sparseArr = mySparseArray.transToSparse(twoDimArr);
+        sparseArr[0][0] = twoDimArr.length;
+        sparseArr[0][1] = twoDimArr[0].length;
         sparseArr[0][2] = sum;
 
-        for (int i = 0; i < sparseArr.length; i++) {
-            System.out.printf("%d\t%d\t%d\n",sparseArr[i][0],sparseArr[i][1],sparseArr[i][2]);
+        System.out.println("------------------二维数组转稀疏数组------------------");
+        for (int[] ints : sparseArr) {
+            System.out.printf("%d\t%d\t%d\n", ints[0], ints[1], ints[2]);
+        }
+
+        System.out.println("------------------稀疏数组转二维数组------------------");
+        int[][] transTwoDimArr = mySparseArray.transToTwoDim(sparseArr);
+        for (int[] cells:transTwoDimArr) {
+            for (int cell: cells ) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
         }
 
     }

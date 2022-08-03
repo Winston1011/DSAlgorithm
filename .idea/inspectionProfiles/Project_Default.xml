@@ -30,7 +30,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="description:提供连接方法,description:释放资源,description:获取连接池的方法,Author:,Date:,Description:,Version" />
+      <option name="myAdditionalJavadocTags" value="description:提供连接方法,description:释放资源,description:获取连接池的方法,Author:,Date:,Description:,Version,E-mail,date" />
     </inspection_tool>
   </profile>
 </component>
