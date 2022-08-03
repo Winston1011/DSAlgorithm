@@ -17,15 +17,25 @@ public class MySparseArray {
     private int[][] sparseArray = new int[validNum][3];
 
 
-    public int[][] transToSparse(int[][] twoDimArr) {
+    /**
+     * 获取有效数字个数
+     * @param chessArr
+     * @return
+     */
+    private static int getValidNum(int[][] chessArr) {
         int sum = 0;
-        for (int i = 0; i < twoDimArr.length; i++) {
-            for (int j = 0; j < twoDimArr[0].length; j++) {
-                if (twoDimArr[i][j] != 0) {
+        for (int i = 0; i < chessArr.length; i++) {
+            for (int j = 0; j < chessArr[0].length; j++) {
+                if (chessArr[i][j] != 0) {
                     sum++;
                 }
             }
         }
+        return sum;
+    }
+
+    public int[][] transToSparse(int[][] twoDimArr) {
+        int sum = getValidNum(twoDimArr);
         int[][] sparseArr = new int[sum + 1][3];
         int count = 0;
         for (int i = 0; i < twoDimArr.length; i++) {
@@ -52,14 +62,7 @@ public class MySparseArray {
         chessArr[1][1] = 3;
         chessArr[2][2] = 5;
         chessArr[3][3] = 7;
-        int sum = 0;
-        for (int i = 0; i < chessArr.length; i++) {
-            for (int j = 0; j < chessArr[0].length; j++) {
-                if (chessArr[i][j] != 0) {
-                    sum++;
-                }
-            }
-        }
+        int sum = getValidNum(chessArr);
         int [][] sparseArr = mySparseArray.transToSparse(chessArr);
         sparseArr[0][0] = chessArr.length;
         sparseArr[0][1] = chessArr[0].length;
@@ -67,10 +70,10 @@ public class MySparseArray {
 
         for (int i = 0; i < sparseArr.length; i++) {
             System.out.printf("%d\t%d\t%d\n",sparseArr[i][0],sparseArr[i][1],sparseArr[i][2]);
-
         }
 
     }
+
 
 
 }
