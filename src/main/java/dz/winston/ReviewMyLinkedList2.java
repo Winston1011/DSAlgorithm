@@ -1,16 +1,17 @@
 package dz.winston;
 
+import java.util.NoSuchElementException;
+
 /**
  * @Author: EpochDZ
- * @Date: 16:35 2022/8/4
- * @Description: 双链表
+ * @Date: 18:51 2022/8/4
+ * @Description: 单链表
  * @Version v1.0
  */
-public class ReviewMyLinkedList {
-    //链表节点
-    public class Node {
+public class ReviewMyLinkedList2 {
+    // 节点
+    private class Node {
         int val;
-        Node prev;
         Node next;
 
         public Node(int val) {
@@ -18,17 +19,16 @@ public class ReviewMyLinkedList {
         }
     }
 
-    //定义虚拟头节点、尾节点
-    private static Node head, tail;
-    //定义当前元素个数
+    // 元素个数
     private int size;
-
+    // 虚拟头节点、尾节点
+    private static Node head, tail;
     //初始化
-    public ReviewMyLinkedList() {
+
+    public ReviewMyLinkedList2() {
         head = new Node(-1);
         tail = new Node(-1);
         head.next = tail;
-        tail.prev = head;
         this.size = 0;
     }
 
@@ -37,23 +37,19 @@ public class ReviewMyLinkedList {
     public void addFirst(int val) {
         Node x = new Node(val);
         Node temp = head.next;
-        // head <-> x <-> temp
+        // head -> x -> temp
         head.next = x;
-        x.prev = head;
         x.next = temp;
-        temp.prev = x;
         size++;
     }
 
     // 在结尾添加元素
     public void addLast(int val) {
         Node x = new Node(val);
-        Node temp = tail.prev;
-        // temp <-> x <-> tail
+        Node temp = getNode(size - 1);
+        // temp -> x -> tail
         temp.next = x;
-        x.prev = temp;
         x.next = tail;
-        tail.prev = x;
         size++;
     }
 
@@ -67,98 +63,96 @@ public class ReviewMyLinkedList {
         } else {
             prev = head;
         }
-        Node next = getNode(index);
-        //prev <-> x <-> next
+        Node temp = getNode(index);
+        //prev -> x -> temp;
         prev.next = x;
-        x.prev = prev;
-        x.next = next;
-        next.prev = x;
+        x.next = temp;
         size++;
     }
 
     /****** 删 ******/
     // 删除开头元素（返回删除值）
     public int removeFirst() {
-        Node x = head.next;
-        head.next = x.next;
-        x.next.prev = head;
-        x.next = null;
-        x.prev = null;
-        int oldValue = x.val;
+        if (isEmpty()) {
+            throw new NoSuchElementException("List is empty");
+        }
+        Node first = head.next;
+        // head -> first -> temp ...
+        head.next = first.next;
+        first.next = null;
         size--;
-        return oldValue;
+        return first.val;
     }
 
     // 删除结尾元素（返回删除值）
     public int removeLast() {
-        Node x = tail.prev;
-        x.prev.next = tail;
-        tail.prev = x.prev;
+        if (isEmpty()) {
+            throw new NoSuchElementException("List is empty");
+        }
+        Node x = getNode(size - 1);
+        Node temp;
+        if (size - 2 >= 0) {
+            temp = getNode(size - 2);
+        } else {
+            temp = head;
+        }
+        // temp -> x -> tail
+        temp.next = tail;
         x.next = null;
-        x.prev = null;
-        int oldValue = x.val;
+        // temp -> tail
         size--;
-        return oldValue;
+        return x.val;
     }
 
     // 删除指定index中的元素（返回删除值）
     public int remove(int index) {
         checkElementIndex(index);
-        Node prev;
-        if (index - 1 >= 0) {
-            prev = getNode(index - 1);
-        } else {
-            prev = head;
+        if (index == 0) {
+            removeFirst();
         }
-        Node x = getNode(index);
-        prev.next = x.next;
-        x.next.prev = prev;
-        x.next = null;
-        x.prev = null;
-        int oldValue = x.val;
+        Node prev = getNode(index - 1);
+        Node temp = getNode(index);
+        // prev -> temp -> next
+        prev.next = temp.next;
+        temp.next = null;
+        // prev -> next
+
         size--;
-        return oldValue;
+        return temp.val;
     }
 
     /****** 查 ******/
     // 返回开头元素值
     public int getFirst() {
-        Node x = head.next;
-        return x.val;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return head.next.val;
     }
 
     // 返回结尾元素值
     public int getLast() {
-        Node x = tail.prev;
-        return x.val;
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return getNode(size - 1).val;
     }
 
     // 返回指定index中值
     public int get(int index) {
         checkElementIndex(index);
-        Node x = getNode(index);
-        return x.val;
+        Node p = getNode(index);
+        return p.val;
     }
 
     /****** 改 ******/
     // 更改指定index中的值
     public void set(int index, int val) {
         checkElementIndex(index);
-        Node x = new Node(val);
-        Node prev;
-        if (index - 1 >= 0) {
-            prev = getNode(index - 1);
-        } else {
-            prev = head;
-        }
-        Node next = getNode(index);
-        // prev <-> x
-        prev.next = x;
-        x.prev = prev;
-        x.next = next.next;
-        next.next.prev = x;
-        next.next = null;
-        next.prev = null;
+        Node p = getNode(index);
+
+        int oldVal = p.val;
+        p.val = val;
     }
 
     /****** 其他 ******/
@@ -198,39 +192,21 @@ public class ReviewMyLinkedList {
     private void display() {
         System.out.println("size = " + size);
         for (Node p = head.next; p != tail; p = p.next) {
-            System.out.print(p.val + " <-> ");
+            System.out.print(p.val + " -> ");
         }
         System.out.println("null");
     }
 
     public static void main(String[] args) {
-        ReviewMyLinkedList reviewMyLinkedList = new ReviewMyLinkedList();
-
-        reviewMyLinkedList.addLast(1);
-        reviewMyLinkedList.addLast(2);
-        reviewMyLinkedList.addLast(3);
-        reviewMyLinkedList.addLast(4);
-        reviewMyLinkedList.addLast(5);
-        reviewMyLinkedList.addFirst(10);
-        reviewMyLinkedList.display();
-
-        reviewMyLinkedList.add(1,6);
-        reviewMyLinkedList.display();
-
-        reviewMyLinkedList.removeFirst();
-        reviewMyLinkedList.display();
-
-        reviewMyLinkedList.removeLast();
-        reviewMyLinkedList.display();
-
-        reviewMyLinkedList.remove(2);
-        reviewMyLinkedList.display();
-
-        reviewMyLinkedList.set(2,2);
-        reviewMyLinkedList.display();
-
-
-
+        ReviewMyLinkedList2 reviewMyLinkedList2 = new ReviewMyLinkedList2();
+        reviewMyLinkedList2.addFirst(1);
+        reviewMyLinkedList2.addFirst(2);
+        reviewMyLinkedList2.addLast(3);
+        reviewMyLinkedList2.add(1,2);   //链表变为2-> 2 -> 1 -> 3
+        reviewMyLinkedList2.display();
+        System.out.println(reviewMyLinkedList2.get(1));            //返回2
+        reviewMyLinkedList2.remove(2);  //现在链表是2 -> 2 ->3
+        reviewMyLinkedList2.display();
+        System.out.println(reviewMyLinkedList2.get(1));            //返回2
     }
-
 }
