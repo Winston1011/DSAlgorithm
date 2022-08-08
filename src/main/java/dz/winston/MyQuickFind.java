@@ -8,12 +8,12 @@ import java.util.Arrays;
  * @Description: 图的 并查集
  * @Version v1.0
  */
-public class MyUnionFind {
+public class MyQuickFind {
     //定义存放顶点信息的数组
     private int[] root;
 
     //构造函数
-    public MyUnionFind(int size) {
+    public MyQuickFind(int size) {
         root = new int[size];
         for (int i = 0; i < size; i++) {
             root[i] = i;
@@ -44,7 +44,7 @@ public class MyUnionFind {
     }
 
     public static void main(String[] args) {
-        MyUnionFind myUnionFind = new MyUnionFind(10);
+        MyQuickFind myUnionFind = new MyQuickFind(10);
         // 1-2-5-6-7 3-8-9 4
         myUnionFind.union(1, 2);
         myUnionFind.union(2, 5);
