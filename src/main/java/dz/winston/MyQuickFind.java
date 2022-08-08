@@ -44,22 +44,22 @@ public class MyQuickFind {
     }
 
     public static void main(String[] args) {
-        MyQuickFind myUnionFind = new MyQuickFind(10);
+        MyQuickFind myQuickFind = new MyQuickFind(10);
         // 1-2-5-6-7 3-8-9 4
-        myUnionFind.union(1, 2);
-        myUnionFind.union(2, 5);
-        myUnionFind.union(5, 6);
-        myUnionFind.union(6, 7);
-        myUnionFind.union(3, 8);
-        myUnionFind.union(8, 9);
-        System.out.println(myUnionFind.connected(1, 5)); // true
-        System.out.println(myUnionFind.connected(5, 7)); // true
-        System.out.println(myUnionFind.connected(4, 9)); // false
+        myQuickFind.union(1, 2);
+        myQuickFind.union(2, 5);
+        myQuickFind.union(5, 6);
+        myQuickFind.union(6, 7);
+        myQuickFind.union(3, 8);
+        myQuickFind.union(8, 9);
+        System.out.println(myQuickFind.connected(1, 5)); // true
+        System.out.println(myQuickFind.connected(5, 7)); // true
+        System.out.println(myQuickFind.connected(4, 9)); // false
         // 1-2-5-6-7 3-8-9-4
-        myUnionFind.union(9, 4);
-        System.out.println(myUnionFind.connected(4, 9)); // true
+        myQuickFind.union(9, 4);
+        System.out.println(myQuickFind.connected(4, 9)); // true
 
-        System.out.println(Arrays.toString(myUnionFind.root));
+        System.out.println(Arrays.toString(myQuickFind.root));
     }
 
 
