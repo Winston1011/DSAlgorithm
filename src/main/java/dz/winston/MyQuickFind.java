@@ -5,12 +5,12 @@ import java.util.Arrays;
 /**
  * @Author: EpochDZ
  * @Date: 18:29 2022/8/8
- * @Description: 图的 并查集
+ * @Description: 图的并查集-快速查找（值存放根节点）
  * @Version v1.0
  */
 public class MyQuickFind {
     //定义存放顶点信息的数组
-    private int[] root;
+    private final int[] root;
 
     //构造函数
     public MyQuickFind(int size) {
