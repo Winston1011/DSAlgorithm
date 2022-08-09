@@ -113,6 +113,7 @@ public class MyArrayQueue {
         myArrayQueue.offer(12);
         myArrayQueue.display();
         System.out.println(myArrayQueue.peekLast());
+        System.out.println(myArrayQueue.peekFirst());
 
     }
 }
