@@ -229,7 +229,7 @@ public class MyLinkedList<E> {
         }
     }
 
-    private void display() {
+    public void display() {
         System.out.println("size = " + size);
         for (Node<E> p = head.next; p != tail; p = p.next) {
             System.out.print(p.element + " -> ");
