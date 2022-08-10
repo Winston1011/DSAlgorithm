@@ -1,5 +1,6 @@
 package dz.winston;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -262,6 +263,7 @@ public class MyHashMap1 {
         myHashMap1.put(1, 11);
         myHashMap1.put(2, 22);
         myHashMap1.put(3, 33);
+        myHashMap1.put(3, 44);
 
         int v1 = myHashMap1.get(1);
 
@@ -270,6 +272,19 @@ public class MyHashMap1 {
 
         boolean ret2 = myHashMap1.containsKey(3);
 
+        Slot[] slots = myHashMap1.table;
+        LinkedList<Integer> allKeysList = new LinkedList<>();
+        for (Slot slot : slots) {
+            List<Integer> keysList = slot.keys();
+            if (keysList.isEmpty()) {
+                continue;
+            }
+            for (Integer key : keysList) {
+                allKeysList.addLast(key);
+            }
+        }
+
+        System.out.println(Arrays.toString(allKeysList.toArray()));
     }
 
 }
