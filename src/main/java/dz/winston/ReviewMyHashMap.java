@@ -181,6 +181,9 @@ public class ReviewMyHashMap {
 
     // 新增或更改
     public void put(int key, int val) {
+        if (key < 0) {
+            throw new IllegalArgumentException("key不可为负数");
+        }
         // 扩容
         if (size >= table.length * DEFAULT_LOAD_FACTOR) {
             resize(table.length * 2);
@@ -206,6 +209,9 @@ public class ReviewMyHashMap {
 
     // 查
     public int get(int key) {
+        if (key < 0) {
+            throw new IllegalArgumentException("key不可为负数");
+        }
         MySlot mySlot = table[hash(key)];
         return mySlot.get(key);
     }
