@@ -237,7 +237,6 @@ public class ReviewMyHashMap {
         // 构造一个newCap的hashmap
         ReviewMyHashMap newMap = new ReviewMyHashMap(newCap);
         // 取出原table中所有键值对，插入新hashmap
-        LinkedList<Map.Entry<Integer, Integer>> allEntries = new LinkedList<>();
         for (MySlot mySlot : table) {
             for (Map.Entry<Integer, Integer> entry : mySlot.entries()) {
                 int key = entry.getKey();
