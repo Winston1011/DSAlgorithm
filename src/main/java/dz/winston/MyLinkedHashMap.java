@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * @Author: EpochDZ
  * @Date: 20:44 2022/8/10
- * @Description: hashmap+linkedList
+ * @Description: hashmap+linkedList 可顺序读取键值对
  * @Version v1.0
  */
 public class MyLinkedHashMap {
