@@ -26,11 +26,15 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.HashSet;
+import java.util.Set;
+
 //Java：数组中重复的数字
-class P剑指 Offer 03ShuZuZhongZhongFuDeShuZiLcof{
+class P剑指Offer03ShuZuZhongZhongFuDeShuZiLcof{
   
     public static void main(String[] args) {
-        Solution solution = new P剑指 Offer 03ShuZuZhongZhongFuDeShuZiLcof().new Solution();
+        Solution solution = new P剑指Offer03ShuZuZhongZhongFuDeShuZiLcof().new Solution();
         // TO TEST
     }
     //leetcode submit region begin(Prohibit modification and deletion)

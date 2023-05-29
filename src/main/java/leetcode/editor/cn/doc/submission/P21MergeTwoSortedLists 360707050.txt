@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // dummy节点，p节点执行dummy，用于新链表产生
+            ListNode dummy = new ListNode(-1);
+            ListNode p = dummy;
+            // p1,p2指针分别指向list1，list2的头节点
+            ListNode p1 = list1;
+            ListNode p2 = list2;
+            // 遍历list1，list2
+            while (p1 != null && p2 != null) {
+                if (p1.val <= p2.val) {
+                    p.next = p1;
+                    p1 = p1.next;
+                } else {
+                    p.next = p2;
+                    p2 = p2.next;
+                }
+                p = p.next;
+            }
+            // l1中含有比l2所有元素都大的元素 eg. l1 : 1->5->10 l2: 1->4->7
+            if (p1 != null) {
+                p.next = p1;
+            }
+            // l2中含有比l1所有元素都大的元素 eg. l2 : 1->5->10 l1: 1->4->7
+            if (p2 != null) {
+                p.next = p2;
+            }
+            return dummy.next;
+    }
+}
+//runtime:0 ms
+//memory:41.1 MB

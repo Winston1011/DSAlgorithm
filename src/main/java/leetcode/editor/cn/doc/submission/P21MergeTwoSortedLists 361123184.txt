@@ -1,0 +1,43 @@
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode() {}
+     * ListNode(int val) { this.val = val; }
+     * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+    class Solution {
+        // 利用最小堆
+        public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+            if (list1 == null && list2 == null) {
+                return null;
+            }
+            ListNode dummy = new ListNode(-1);
+            ListNode p = dummy;
+
+            PriorityQueue<ListNode> minPQ = new PriorityQueue<>((a, b) -> (a.val - b.val));
+            // 将两个头节点添加minPQ
+            if (list1 != null) {
+                minPQ.add(list1);
+            }
+            if (list2 != null) {
+                minPQ.add(list2);
+            }
+            // 遍历取出最小元素并接到dummy后
+            while (!minPQ.isEmpty()) {
+                ListNode temp = minPQ.poll();
+                p.next = temp;
+                if (temp.next != null) {
+                    minPQ.add(temp.next);
+                }
+                p = p.next;
+            }
+            return dummy.next;
+        }
+    }
+
+//runtime:1 ms
+//memory:41.1 MB
